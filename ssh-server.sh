@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -z "$NGROK_TOKEN" ]]; then
-  echo "Please set '2ef80dbwk08SErdTkyjqqeKCsnH_dUbz6UHWXgsXBCcDhngs'"
+  echo "Please set 'NGROK_TOKEN'"
   exit 2
 fi
 
