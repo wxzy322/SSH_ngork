@@ -1,22 +1,20 @@
-name: SSH Server
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v2
+- name: Start SSH via ngrok
+  uses: P3TERX/ssh2actions@main
+  with:
+    mode: ngrok
+  env:
+    # After sign up on the https://ngrok.com
+    # You can find this token here: https://dashboard.ngrok.com/auth/your-authtoken
+    NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+    
+    # ngrok server region [us, eu, au, ap, sa, jp, in] (optional, default: us)
+    # You can find this server region here: https://ngrok.com/docs#global-locations
+    NGROK_REGION: us
 
-     - name: Failed
-       run: ./dummy.sh
+    # This password you will use when authorizing via SSH
+    SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
 
-     - name: Start SSH Server
-       if: ${{ failure() }}
-       env:
-         NGROK_TOKEN: ${{ secrets.2ef80dbwk08SErdTkyjqqeKCsnH_dUbz6UHWXgsXBCcDhngs }}
-         SSH_PASSWORD: ${{ secrets.r1265362153. }}
-       run: |
-          chmod +x ./ssh-server.sh &&  ./ssh-server.sh
-
-     - name: Sleep
-       if: ${{ failure() }}
-       run: sleep 6h
+    # Send connection info to Telegram (optional)
+    # You can find related documents here: https://core.telegram.org/bots
+    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
