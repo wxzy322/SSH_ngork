@@ -1,17 +1,12 @@
-name: Ngrok SSH Connection
+- name: Start Ngrok SSH
+  run: |
+    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+    unzip ngrok-stable-linux-amd64.zip
+    ./ngrok authtoken <YOUR_NGROK_AUTH_TOKEN>
+    ./ngrok tcp 22 &
 
-on: [push]
-
-jobs:
-  ngrok_ssh:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Start Ngrok SSH
-      run: |
-        ./ngrok tcp 22
-
-    - name: Get Ngrok URL
-      run: |
-        NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-        echo "Ngrok URL: $NGROK_URL"
+- name: Get Ngrok URL
+  run: |
+    sleep 10
+    NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+    echo "Ngrok URL: $NGROK_URL"
