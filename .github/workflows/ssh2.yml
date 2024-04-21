@@ -1,12 +1,7 @@
-- name: Start Ngrok SSH
-  run: |
-    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-    unzip ngrok-stable-linux-amd64.zip
-    ./ngrok authtoken <YOUR_NGROK_AUTH_TOKEN>
-    ./ngrok tcp 22 &
-
-- name: Get Ngrok URL
-  run: |
-    sleep 10
-    NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-    echo "Ngrok URL: $NGROK_URL"
+- name: Start SSH via tmate
+  uses: P3TERX/ssh2actions@main
+  # Send connection info to Telegram (optional)
+  # You can find related documents here: https://core.telegram.org/bots
+  env:
+    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
