@@ -1,4 +1,4 @@
-- name: Start SSH via ngrok
+ - name: Start SSH via ngrok
   uses: P3TERX/ssh2actions@main
   with:
     mode: ngrok
